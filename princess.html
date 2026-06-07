@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+<meta name="theme-color" content="#003B5C">
+<title>프린세스 크루즈 생활백서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #003B5C;
+    --brand-dark: #00253A;
+    --accent: #D4A94A;
+    --ivory: #FAF7F2;
+    --cream: #F5F0E6;
+    --text: #1A1A1A;
+    --text-soft: #4A4A4A;
+    --text-light: #6E6E6E;
+    --line: #E5E0D5;
+    --card: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--ivory); color: var(--text);
+    line-height: 1.65; word-break: keep-all;
+    overflow-wrap: break-word; font-weight: 400;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  .hero { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: #fff; padding: 60px 20px 50px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 400px; height: 400px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.18; }
+  .hero-emoji { font-size: 56px; margin-bottom: 16px; position: relative; }
+  .hero h1 { font-size: 30px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 10px; position: relative; }
+  .hero .sub { font-size: 15px; opacity: 0.92; font-weight: 400; position: relative; }
+  .hero .accent-bar { width: 50px; height: 3px; background: var(--accent); margin: 20px auto 16px; border-radius: 2px; position: relative; }
+  section { padding: 50px 0 10px; scroll-margin-top: 20px; }
+  .section-tag { display: inline-block; background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; margin-bottom: 14px; letter-spacing: 0.5px; }
+  .section-title { font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -0.5px; }
+  .section-desc { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
+  .card { background: var(--card); border-radius: 16px; padding: 22px 20px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); border: 1px solid var(--line); }
+  .card-title { font-size: 17px; font-weight: 800; margin-bottom: 14px; color: var(--brand); display: flex; align-items: center; gap: 8px; }
+  .card-title .ico { font-size: 22px; }
+  .info-list { list-style: none; }
+  .info-list li { display: flex; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; gap: 10px; }
+  .info-list li:last-child { border-bottom: none; }
+  .info-list .label { font-weight: 700; color: var(--brand); min-width: 75px; flex-shrink: 0; }
+  .info-list .value { color: var(--text-soft); flex: 1; }
+  .step { display: flex; gap: 14px; margin-bottom: 18px; align-items: flex-start; }
+  .step-num { background: var(--brand); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+  .step-body { flex: 1; padding-top: 3px; }
+  .step-body strong { display: block; font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .step-body p { font-size: 14px; color: var(--text-soft); line-height: 1.55; }
+  .tip { background: linear-gradient(135deg, #FBF6E8 0%, #FDFBF2 100%); border-left: 4px solid var(--accent); padding: 14px 16px; border-radius: 10px; margin: 14px 0; font-size: 14px; color: var(--text-soft); }
+  .tip strong { color: var(--text); font-weight: 800; }
+  .warn { background: linear-gradient(135deg, #FFF0F0 0%, #FFF8F8 100%); border-left: 4px solid #E63946; padding: 14px 16px; border-radius: 10px; margin: 14px 0; font-size: 14px; color: var(--text-soft); }
+  .warn strong { color: #C92E3C; font-weight: 800; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .badge { background: var(--cream); color: var(--brand-dark); padding: 6px 12px; border-radius: 14px; font-size: 12.5px; font-weight: 600; border: 1px solid var(--line); }
+  .meal-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
+  .meal-table th, .meal-table td { padding: 11px 8px; text-align: left; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .meal-table th { color: var(--brand); font-weight: 700; background: var(--cream); }
+  .meal-table td:first-child { font-weight: 700; }
+  .help-box { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: #fff; border-radius: 16px; padding: 26px 22px; text-align: center; margin: 14px 0; }
+  .help-box h3 { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
+  .help-box .phrase { background: rgba(255,255,255,0.15); padding: 12px 16px; border-radius: 10px; margin: 10px 0; font-size: 15px; font-weight: 700; }
+  .help-box p { font-size: 14px; opacity: 0.92; line-height: 1.6; }
+  .footer-cta { background: var(--brand-dark); color: #fff; text-align: center; padding: 40px 20px; margin-top: 40px; }
+  .footer-cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+  .footer-cta p { font-size: 14px; opacity: 0.85; }
+  .footer-cta .accent-bar { width: 40px; height: 3px; background: var(--accent); margin: 12px auto; border-radius: 2px; }
+  .highlight-card { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: #fff; border-radius: 16px; padding: 24px 20px; margin: 14px 0; }
+  .highlight-card h4 { font-size: 17px; font-weight: 800; margin-bottom: 12px; }
+  .highlight-card ul { list-style: none; }
+  .highlight-card li { padding: 8px 0; font-size: 14.5px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .highlight-card li:last-child { border-bottom: none; }
+  @media (max-width: 520px) {
+    .container { padding: 0 16px; }
+    .hero { padding: 50px 18px 40px; }
+    .hero h1 { font-size: 26px; }
+    .hero-emoji { font-size: 48px; }
+    .section-title { font-size: 22px; }
+    .card { padding: 20px 18px; }
+    .card-title { font-size: 16px; }
+    .info-list li { font-size: 14px; flex-direction: column; gap: 4px; }
+    .info-list .label { min-width: auto; }
+  }
+  @media (max-width: 360px) { .hero h1 { font-size: 23px; } .section-title { font-size: 20px; } }
+  a, button { min-height: 50px; display: inline-flex; align-items: center; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-emoji">🛳️</div>
+  <h1>프린세스 크루즈 생활백서</h1>
+  <div class="accent-bar"></div>
+  <div class="sub">미국식 클래식 럭셔리 · Princess Cruises</div>
+</header>
+
+<div class="container">
+
+  <!-- 1. 선사 한눈에 -->
+  <section>
+    <span class="section-tag">01 · 선사 한눈에</span>
+    <h2 class="section-title">프린세스는 어떤 선사?</h2>
+    <p class="section-desc">미국식 클래식 럭셔리 · Medallion 기술이 특징</p>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🇺🇸</span>Princess Cruises</div>
+      <ul class="info-list">
+        <li><span class="label">본사</span><span class="value">미국 산타클라리타 · 1965년 창립</span></li>
+        <li><span class="label">소속</span><span class="value">카니발 코퍼레이션</span></li>
+        <li><span class="label">스타일</span><span class="value">미국식 클래식 럭셔리 · "Love Boat" 시리즈로 유명</span></li>
+        <li><span class="label">강점</span><span class="value"><strong>Medallion 기술</strong> — 비접촉 결제·도어록·서비스 호출 통합</span></li>
+        <li><span class="label">추천</span><span class="value">시니어·커플·차분한 분위기 선호</span></li>
+        <li><span class="label">한국 친화도</span><span class="value">⭐⭐ (영어 위주 · 미국식)</span></li>
+        <li><span class="label">대표 선박</span><span class="value">Enchanted, Discovery, Sky, Royal, Majestic, Sun, Star Princess</span></li>
+      </ul>
+    </div>
+
+    <div class="highlight-card">
+      <h4>💎 프린세스만의 특징</h4>
+      <ul>
+        <li>🎫 <strong>Medallion 웨어러블</strong> — 객실키·결제·서비스 호출 다 됨</li>
+        <li>📱 <strong>MedallionClass 앱</strong> — 출항 전 체크인부터 음료 주문까지</li>
+        <li>🍽️ <strong>Anytime / Traditional 다이닝</strong> 선택 가능</li>
+        <li>🌊 <strong>SeaWalk</strong> — 해수면 39m 위 글래스 바텀 산책로</li>
+        <li>🎬 <strong>Movies Under the Stars</strong> — 야외 대형 스크린</li>
+        <li>☕ <strong>International Café 24시간</strong> 무료</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2. 승선 전 -->
+  <section>
+    <span class="section-tag">02 · 승선 전 (D-30 ~ D-1)</span>
+    <h2 class="section-title">출항 전에 끝낼 것</h2>
+    <p class="section-desc">프린세스는 <strong>Medallion 준비가 핵심!</strong></p>
+
+    <div class="warn"><strong>⚠️ 가장 중요!</strong> 출항 전에 <strong>MedallionClass 앱 다운로드 + 체크인 완료</strong> 필수. 안 하면 승선이 늦어져요.</div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">📱</span>MedallionClass 앱 (필수!)</div>
+      <ul class="info-list">
+        <li><span class="label">시기</span><span class="value">출항 약 75일 전부터 가능</span></li>
+        <li><span class="label">앱 이름</span><span class="value">MedallionClass (App Store/Play Store)</span></li>
+        <li><span class="label">할 일</span><span class="value">개인정보 · 여권 사진 · 결제카드 · 비상연락처 · 사진 등록</span></li>
+        <li><span class="label">완료 후</span><span class="value">"Green Lane" 자격 → 빠른 승선</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🎫</span>Medallion 받기</div>
+      <p style="font-size:14px;color:var(--text-soft);">동전 모양 웨어러블 디바이스예요. 출항 전 받는 방법 2가지:</p>
+      <ul class="info-list">
+        <li><span class="label">우편 수령</span><span class="value">미국 내 주소만 가능 (한국 불가)</span></li>
+        <li><span class="label">선상 픽업</span><span class="value">한국 출발 팀은 <strong>승선 당일 터미널에서 픽업</strong></span></li>
+      </ul>
+      <div class="tip"><strong>💡 팁</strong> 메달리온 액세서리(목걸이·팔찌 등)도 앱에서 미리 주문 가능. 선상 가격보다 저렴.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">💳</span>음료 패키지 선택</div>
+      <p style="font-size:14px;color:var(--text-soft);">프린세스는 패키지가 셋 — 출항 전에 정하는 게 가장 저렴해요.</p>
+      <table class="meal-table">
+        <tr><th>패키지</th><th>가격/인/일</th><th>주요 혜택</th></tr>
+        <tr><td>Standard</td><td>기본 (무료)</td><td>식수·차·일부 커피</td></tr>
+        <tr><td><strong>Plus</strong></td><td>$65 (약 9.8만)</td><td>음료·Wi-Fi 1대·팁 포함</td></tr>
+        <tr><td><strong>Premier</strong></td><td>$100 (약 15만)</td><td>+무제한 스페셜티·Wi-Fi 4대·기항지 크레딧</td></tr>
+      </table>
+      <div class="tip"><strong>💡 추천</strong> Plus는 가성비 최고 (팁+Wi-Fi 한 번에). 와인·칵테일 자주 마시면 무조건 본전.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🧳</span>패킹 핵심</div>
+      <ul class="info-list">
+        <li><span class="label">필수</span><span class="value">여권 · 휴대폰(앱) · 신용카드 · 멀티어댑터</span></li>
+        <li><span class="label">의류</span><span class="value">Smart Casual · 항해 중 1~2회 "Dress to Impress" (포멀)</span></li>
+        <li><span class="label">선택</span><span class="value">메달리온 액세서리·수영복·운동복</span></li>
+        <li><span class="label">상비약</span><span class="value">멀미약·평소 복용약</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. 승선 당일 -->
+  <section>
+    <span class="section-tag">03 · 승선 당일</span>
+    <h2 class="section-title">터미널 → 객실까지</h2>
+
+    <div class="card">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>앱 체크인 완료 확인</strong>
+          <p>녹색 "Green Lane" 표시면 OK. 빨강이면 터미널에서 추가 절차 필요해 시간 더 걸려요.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>지정 시간 도착 · 짐 위탁</strong>
+          <p>터미널 입구 포터에게 짐 위탁. 객실 배달은 오후.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Medallion 수령</strong>
+          <p>터미널 데스크에서 본인 메달리온 받기. <strong>이게 객실키·결제카드·서비스 호출 다 됨.</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>승선 · 안전훈련</strong>
+          <p>객실 위치는 앱에서 확인 가능. 출항 전 <strong>비상 안전훈련 필수 참여</strong>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>첫날 꼭 할 것</strong>
+          <p>① 다이닝 시간·장소 확인 (앱에서) ② 스페셜티 다이닝 예약 ③ 인기 쇼 좌석 예약</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip"><strong>🎫 Medallion 분실 시</strong> 즉시 Guest Services(Deck 5)에 신고. 재발급 받으면 돼요.</div>
+  </section>
+
+  <!-- 4. 선상 생활 -->
+  <section>
+    <span class="section-tag">04 · 선상 생활 (씨데이)</span>
+    <h2 class="section-title">배 위에서의 하루</h2>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🍽️</span>다이닝 — 자유롭게 선택</div>
+      <p style="font-size:14px;color:var(--text-soft);margin-bottom:10px;">프린세스는 <strong>Anytime / Traditional 둘 중 선택</strong>해요.</p>
+      <ul class="info-list">
+        <li><span class="label">Traditional</span><span class="value">좌석 지정·시간 지정 (같은 자리·같은 웨이터)</span></li>
+        <li><span class="label">Anytime</span><span class="value">자유 시간 · 앱에서 예약하거나 워크인</span></li>
+        <li><span class="label">메인 다이닝룸</span><span class="value">3개: Santorini · Capri · Amalfi (메뉴 동일)</span></li>
+      </ul>
+      <div class="tip"><strong>💡 Anytime 추천</strong> 일정 자유롭고, 같이 식사할 인원수도 매번 다르게 가능.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🍽️</span>식사 시간</div>
+      <table class="meal-table">
+        <tr><th>식사</th><th>장소</th><th>시간</th></tr>
+        <tr><td>아침</td><td>World Fresh Marketplace(뷔페) / 다이닝룸</td><td>07:00–10:00</td></tr>
+        <tr><td>점심</td><td>뷔페 / 다이닝룸 / Salty Dog · Alfredo's</td><td>12:00–14:30</td></tr>
+        <tr><td>저녁</td><td>다이닝룸 (Anytime/Traditional)</td><td>17:30–22:00</td></tr>
+        <tr><td>야식</td><td>International Café (24시간)</td><td>거의 종일</td></tr>
+      </table>
+      <div class="tip"><strong>🍕 무료 추천</strong> Alfredo's Slice (해상 최대 무료 피자) · Salty Dog Cafe (수제 버거) · International Café (24시간 카페).</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">💳</span>화폐 · 결제 · 팁</div>
+      <ul class="info-list">
+        <li><span class="label">통화</span><span class="value"><strong>전 항로 미국 달러 ($)</strong> · 유럽 항로도 달러</span></li>
+        <li><span class="label">결제</span><span class="value">Medallion = 모든 선내 결제 (체크인 시 등록한 카드로 정산)</span></li>
+        <li><span class="label">현금</span><span class="value">선내에선 거의 사용 X (카지노 정도)</span></li>
+        <li><span class="label">Daily 팁</span><span class="value">인사이드/오션뷰/발코니 <strong>$18/인/일 (약 2.7만원)</strong></span></li>
+        <li><span class="label"></span><span class="value">미니스위트 <strong>$19 (약 2.85만원)</strong> · 스위트 <strong>$20 (약 3만원)</strong></span></li>
+        <li><span class="label">음료 팁</span><span class="value">주문 시 별도 18% 자동 추가</span></li>
+      </ul>
+      <div class="tip"><strong>💡 Plus/Premier 패키지</strong> 구매 시 Daily 팁(Crew Appreciation) 자동 포함돼요.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">📶</span>와이파이 — MedallionNet (Starlink 기반)</div>
+      <ul class="info-list">
+        <li><span class="label">속도</span><span class="value">Starlink 기반이라 <strong>매우 빠름</strong> (영상 통화·스트리밍 가능)</span></li>
+        <li><span class="label">Classic 1대</span><span class="value">$24.99/일 (약 3.7만원)</span></li>
+        <li><span class="label">Classic 4대</span><span class="value">$44.99/일 (약 6.7만원)</span></li>
+        <li><span class="label">패키지</span><span class="value">Plus(1대)·Premier(4대)에 포함</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🎭</span>엔터테인먼트</div>
+      <p style="font-size:14px;color:var(--text-soft);"><strong>Princess Theater(대극장)</strong> · <strong>Movies Under the Stars(야외 영화)</strong> · <strong>Princess Live!</strong> · <strong>Watercolor Fantasy</strong>(85개 분수 쇼) · <strong>Spellbound by Magic Castle</strong>(마술 다이닝) · 라이브 뮤직.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">👔</span>드레스코드</div>
+      <ul class="info-list">
+        <li><span class="label">기본</span><span class="value">Smart Casual (단정한 캐주얼)</span></li>
+        <li><span class="label">포멀</span><span class="value">"Dress to Impress" 항해 중 1~2회 (정장·이브닝 드레스)</span></li>
+        <li><span class="label">대안</span><span class="value">포멀 부담되면 뷔페·캐주얼에서 식사 가능</span></li>
+      </ul>
+    </div>
+
+    <div class="help-box">
+      <h3>🗣️ 도움 필요할 때</h3>
+      <p>한국어 서비스는 거의 없어요. 영어로 정중하게:</p>
+      <div class="phrase">"Could I get some help, please?"<br><span style="font-size:13px;opacity:0.8;font-weight:400;">쿠드 아이 겟 썸 헬프, 플리즈?</span></div>
+      <p>Guest Services(Deck 5) 또는 앱에서 24시간 채팅 가능</p>
+    </div>
+  </section>
+
+  <!-- 5. 기항지 -->
+  <section>
+    <span class="section-tag">05 · 기항지</span>
+    <h2 class="section-title">내릴 때 · 탈 때</h2>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🎫</span>꼭 챙길 것</div>
+      <ul class="info-list">
+        <li><span class="label">Medallion</span><span class="value">하선·승선 시 자동 스캔. 꼭 착용!</span></li>
+        <li><span class="label">여권</span><span class="value">국가별 정책 다름 · 미리 확인</span></li>
+        <li><span class="label">현지 화폐</span><span class="value">$/€/£ 소액 + 신용카드</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ico">🚌</span>익스커션 vs 자유여행</div>
+      <ul class="info-list">
+        <li><span class="label">익스커션</span><span class="value">앱·Shore Excursions 데스크(Deck 5)에서 예약</span></li>
+        <li><span class="label">자유여행</span><span class="value">대중교통·도보·우버 활용</span></li>
+        <li><span class="label">여행팁</span><span class="value">Premier 패키지엔 기항지 크레딧 $100~300 포함</span></li>
+      </ul>
+    </div>
+
+    <div class="warn"><strong>⏰ 복귀 시간</strong> 출항 <strong>1시간 전</strong>까지 무조건 승선. 늦으면 배 못 타요. 매일 앱·객실 안내문으로 시간 공지.</div>
+  </section>
+
+  <!-- 6. 하선 -->
+  <section>
+    <span class="section-tag">06 · 하선</span>
+    <h2 class="section-title">마지막 날</h2>
+
+    <div class="card">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>전날 밤 짐 정리</strong>
+          <p>큰 짐 객실 문 앞에 (정해진 시간 전). 짐 태그 부착. <strong>여권·귀중품·다음날 입을 옷은 휴대</strong>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>하선 시간 확인 (앱)</strong>
+          <p>등급별·자가 운반 여부별 그룹 안내. 앱에서 본인 그룹 시간 확인.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>아침 식사</strong>
+          <p>뷔페·다이닝룸 일찍 운영. 마지막 날은 일찍 닫혀요.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>하선 · 짐 찾기</strong>
+          <p>Medallion 마지막 스캔 → 터미널에서 짐 찾기(태그 색별) → 입국 심사.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip"><strong>💳 최종 청구서</strong> 앱 또는 객실 배달로 전날 밤 확인 가능. 의문 항목은 Guest Services에서 정정.</div>
+  </section>
+
+</div>
+
+<footer class="footer-cta">
+  <h3>Bon Voyage</h3>
+  <div class="accent-bar"></div>
+  <p>Bella · Cruise Nomad 🛳️</p>
+</footer>
+
+</body>
+</html>
